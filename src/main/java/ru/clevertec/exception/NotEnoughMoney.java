@@ -1,6 +1,6 @@
 package main.java.ru.clevertec.exception;
 
-import main.java.ru.clevertec.file.writer.CSVResultWriter;
+import main.java.ru.clevertec.file.writer.Writer;
 
 import java.math.BigDecimal;
 
@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 public class NotEnoughMoney {
     private static final String NOT_ENOUGH_MONEY_MESSAGE = "ERROR\nNOT ENOUGH MONEY";
+    private static Writer objWriter;
 
     /**
      * Проверяет, является ли сумма денег отрицательной или нулевой.
@@ -29,11 +30,11 @@ public class NotEnoughMoney {
      * Проверяет, достаточно ли денег для совершения покупки.
      *
      * @param availableAmount доступная сумма денег
-     * @param totalPrice общая стоимость покупки
+     * @param totalPrice      общая стоимость покупки
      * @return true, если денег достаточно, иначе false
      */
     public static boolean getNotEnoughMoney(BigDecimal availableAmount, BigDecimal totalPrice) {
-        if(availableAmount.compareTo(totalPrice) >= 0) {
+        if (availableAmount.compareTo(totalPrice) >= 0) {
             return true;
         }
         writeNotEnoughMoney(NOT_ENOUGH_MONEY_MESSAGE);
@@ -47,6 +48,15 @@ public class NotEnoughMoney {
      */
     private static void writeNotEnoughMoney(String errorMessage) {
         System.out.println(errorMessage);
-        CSVResultWriter.writeError(errorMessage);
+        objWriter.writeError(errorMessage);
+    }
+
+    /**
+     * Присваивает объект Writer для написания ошибок в определенный файл
+     *
+     * @param objWriter объект Writer
+     */
+    public static void setObjWriter(Writer objWriter) {
+        NotEnoughMoney.objWriter = objWriter;
     }
 }

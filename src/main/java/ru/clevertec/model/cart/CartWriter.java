@@ -1,6 +1,5 @@
 package main.java.ru.clevertec.model.cart;
 
-import main.java.ru.clevertec.file.writer.CSVResultWriterFactory;
 import main.java.ru.clevertec.file.writer.Writer;
 
 /**
@@ -10,11 +9,10 @@ public class CartWriter {
     /**
      * Записывает информацию о корзине покупок в файл.
      *
-     * @param cart объект Cart, содержащий информацию о корзине покупок
+     * @param objWriter объект Writer, вызывающий метод для записи чека
+     * @param cart      объект Cart, содержащий информацию о корзине покупок
      */
-    public static void writeResult(Cart cart) {
-        Writer csvResultWriter = new CSVResultWriterFactory().createWriter();
-
-        csvResultWriter.writeResult(cart);
+    public static void writeResult(Writer objWriter, Cart cart) {
+        objWriter.writeResult(cart);
     }
 }

@@ -10,7 +10,7 @@ id;description;price;quantity_in_stock;wholesale product
 9;Packed bananas 1kg;1.1;25;true
 10;Packed beef fillet 1kg;12.8;7;false
 11;Packed pork fillet 1kg;8.52;14;false
-12;Packed chiken breasts 1kg;10.75;18;false
+12;Packed chicken breasts 1kg;10.75;18;false
 13;Baguette 360g;1.3;10;true
 14;Drinking water 1.51;0.8;100;false
 15;Olive oil 500ml;5.3;16;false

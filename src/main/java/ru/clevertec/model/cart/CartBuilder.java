@@ -25,6 +25,7 @@ public class CartBuilder extends CartCalculate {
     public void addProduct(int quantity, Product product) {
         BigDecimal totalProductPrice = CartCalculate.calculateTotalProductPrice(quantity, product.getPrice());
         BigDecimal discountProduct = CartCalculate.calculateDiscountProduct(quantity, product.isWholesale(), totalProductPrice, discountCard);
+
         productItemList.add(new CartItem(quantity, product, discountProduct, totalProductPrice));
     }
 

@@ -13,4 +13,11 @@ public interface Writer {
      * @param cart объект Cart, содержащий информацию о корзине покупок
      */
     void writeResult(Cart cart);
+
+    /**
+     * Записывает информацию ою ошибке.
+     *
+     * @param errorMessage сообщение об ошибке
+     */
+    void writeError(String errorMessage);
 }

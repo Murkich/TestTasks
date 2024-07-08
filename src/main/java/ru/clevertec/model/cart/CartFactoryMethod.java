@@ -1,5 +1,7 @@
 package main.java.ru.clevertec.model.cart;
 
+import main.java.ru.clevertec.exception.InternalServerError;
+
 /**
  * Класс CartFactoryMethod содержит статический метод-фабрику для создания объектов Cart.
  */
@@ -12,6 +14,7 @@ public class CartFactoryMethod {
      */
     public static Cart createCart(CartBuilder cartBuilder) {
         if (cartBuilder == null) {
+            InternalServerError.writeOtherError("CartBuilder cannot be null");
             throw new IllegalArgumentException("CartBuilder cannot be null");
         }
         return cartBuilder.build();

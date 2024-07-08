@@ -40,17 +40,18 @@ public class CommandLineArgumentsParser {
     /**
      * Извлекает список продуктов из заданной карты продуктов.
      *
+     * @param filePath путь к файлу списка продуктов
      * @param productMap map, содержащая идентификаторы продуктов и их соответствующие количества
      * @return список продуктов или пустой список, если какой-либо продукт не найден или его недостаточно на складе
      */
-    static List<Product> getProductsFromMap(Map<Integer, Integer> productMap) {
+    static List<Product> getProductsFromMap(String filePath, Map<Integer, Integer> productMap) {
         List<Product> products = new ArrayList<>();
 
         for (Map.Entry<Integer, Integer> productIdAndQuantity : productMap.entrySet()) {
             int productId = productIdAndQuantity.getKey();
             int quantity = productIdAndQuantity.getValue();
 
-            Product product = CSVProductReader.getProductById(productId);
+            Product product = CSVProductReader.getProductById(filePath, productId);
 
             if (product != null) {
                 products.add(product);
@@ -69,9 +70,9 @@ public class CommandLineArgumentsParser {
     /**
      * Добавляет продукт в map или обновляет его количество, если он уже существует.
      *
-     * @param products map, содержащая продукты и их количество
+     * @param products  map, содержащая продукты и их количество
      * @param productId идентификатор продукта
-     * @param quantity количество продукта
+     * @param quantity  количество продукта
      */
     private static void addProduct(Map<Integer, Integer> products, int productId, int quantity) {
         products.merge(productId, quantity, Integer::sum);
@@ -118,5 +119,37 @@ public class CommandLineArgumentsParser {
 
         BigDecimal balance = new BigDecimal(balanceString);
         return NotEnoughMoney.validateAmount(balance);
+    }
+
+    /**
+     * Извлекает путь к файлу сохранения из аргументов командной строки.
+     *
+     * @param args определяет аргументы командной строки
+     * @return путь к файлу сохранения
+     */
+    static String getPathToFile(String[] args) {
+        String pathToFile = Arrays.stream(args)
+                .filter(arg -> arg.startsWith("pathToFile="))
+                .findFirst()
+                .orElse(null);
+
+        String nameFile = pathToFile.split("=")[1];
+
+        return BadRequest.fileExist(nameFile) ? nameFile : null;
+    }
+
+    /**
+     * Извлекает путь к файлу сохранения из аргументов командной строки.
+     *
+     * @param args определяет аргументы командной строки
+     * @return путь к файлу сохранения
+     */
+    static String getSaveToFile(String[] args) {
+        String saveToFile = Arrays.stream(args)
+                .filter(arg -> arg.startsWith("saveToFile="))
+                .findFirst()
+                .orElse(null);
+
+        return saveToFile == null ? null : saveToFile.split("=")[1];
     }
 }
