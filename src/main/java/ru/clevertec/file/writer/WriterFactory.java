@@ -1,7 +1,5 @@
 package main.java.ru.clevertec.file.writer;
 
-import main.java.ru.clevertec.exception.BadRequest;
-
 /**
  * Абстрактный класс WriterFactory определяет контракт для классов,
  * реализующих фабричный метод для создания объектов Writer.

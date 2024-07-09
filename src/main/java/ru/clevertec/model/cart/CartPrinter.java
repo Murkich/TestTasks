@@ -6,6 +6,7 @@ import main.java.ru.clevertec.util.currency.USDFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 /**
  * Класс CartPrinter предназначен для вывода информации о корзине покупок в консоль.
@@ -20,24 +21,32 @@ public class CartPrinter {
     public static void showCart(BigDecimal userBalance, Cart cart) {
         Currency usdCurrency = new USDFactory().createCurrency();
 
+        // Выводит дату и время в консоль
+        printDateTime(cart);
+
+        // Выводит информацию о дисконтной карте, если она присутствует
+        printDiscountCard(cart.getDiscountCard());
+
+        // Выводит информацию о продуктах в корзине
+        printCartItems(cart.getProductItemList(), usdCurrency);
+
+        // Выводит общую стоимость, скидку и итоговую сумму с учетом скидки
+        printTotalPrices(cart, usdCurrency);
+
+        // Выводит баланс пользователя до и после покупки
+        printBalances(userBalance, cart.getTotalWithDiscountAmount(), usdCurrency);
+    }
+
+    /**
+     * Выводит дату и время в консоль.
+     *
+     * @param cart объект Cart, содержащий информацию о корзине покупок
+     */
+    private static void printDateTime(Cart cart) {
         System.out.println("┌────────────────────────────────────┐");
         System.out.println("│ Date and Time: " + cart.getCurrentDateTime() + " │");
         System.out.println("└────────────────────────────────────┘");
         System.out.println();
-
-        printDiscountCard(cart.getDiscountCard());
-
-        System.out.printf("%-20s%10s%10s%10s%12s\n", "Description", "Qty", "Price", "Discount", "Total");
-        System.out.println("-----------------------------------------------------------------");
-        for (CartItem cartItem : cart.getProductItemList()) {
-            printCartItem(cartItem, usdCurrency);
-        }
-        System.out.println("-----------------------------------------------------------------");
-
-        System.out.println();
-        printTotalPrices(cart, usdCurrency);
-
-        printBalances(userBalance, cart.getTotalWithDiscountAmount(), usdCurrency);
     }
 
     /**
@@ -54,19 +63,24 @@ public class CartPrinter {
     /**
      * Выводит информацию о продукте в корзине.
      *
-     * @param cartItem объект CartItem, содержащий информацию о продукте
-     * @param currency объект Currency, представляющий валюту
+     * @param productItems список продуктов в корзине
+     * @param currency     объект Currency для получения символа валюты
      */
-    private static void printCartItem(CartItem cartItem, Currency currency) {
-        System.out.printf("%-20s%10d%8.2f%2s%8.2f%2s%10.2f%2s\n",
-                cartItem.product().getDescription(),
-                cartItem.quantity(),
-                cartItem.product().getPrice(),
-                currency.getSymbol(),
-                cartItem.discount(),
-                currency.getSymbol(),
-                cartItem.totalPrice(),
-                currency.getSymbol());
+    private static void printCartItems(List<CartItem> productItems, Currency currency) {
+        System.out.printf("%-20s%10s%10s%10s%12s\n", "Description", "Qty", "Price", "Discount", "Total");
+        System.out.println("-----------------------------------------------------------------");
+        for (CartItem cartItem : productItems) {
+            System.out.printf("%-20s%10d%8.2f%2s%8.2f%2s%10.2f%2s\n",
+                    cartItem.product().getDescription(),
+                    cartItem.quantity(),
+                    cartItem.product().getPrice(),
+                    currency.getSymbol(),
+                    cartItem.discount(),
+                    currency.getSymbol(),
+                    cartItem.totalPrice(),
+                    currency.getSymbol());
+        }
+        System.out.println("-----------------------------------------------------------------\n");
     }
 
     /**

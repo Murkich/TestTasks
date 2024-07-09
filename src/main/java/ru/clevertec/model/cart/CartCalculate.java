@@ -11,6 +11,11 @@ import java.util.List;
  * связанных с корзиной покупок, таких как общая стоимость продуктов, скидка и итоговая сумма с учетом скидки.
  */
 class CartCalculate {
+    private static final BigDecimal WHOLESALE_DISCOUNT = BigDecimal.valueOf(0.1);
+    private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
+    private static final BigDecimal ZERO = BigDecimal.ZERO;
+    private static final RoundingMode ROUND = RoundingMode.FLOOR;
+
     /**
      * Вычисляет общую стоимость продукта на основе его количества и цены.
      *
@@ -19,7 +24,7 @@ class CartCalculate {
      * @return общая стоимость продукта
      */
     protected static BigDecimal calculateTotalProductPrice(int quantity, BigDecimal price) {
-        return price.multiply(BigDecimal.valueOf(quantity)).setScale(2, RoundingMode.FLOOR);
+        return price.multiply(BigDecimal.valueOf(quantity)).setScale(2, ROUND);
     }
 
     /**
@@ -32,14 +37,19 @@ class CartCalculate {
      * @param discountCard      дисконтная карта
      * @return скидка на продукт
      */
-    protected static BigDecimal calculateDiscountProduct(int quantity, boolean isWholesale, BigDecimal totalProductPrice, DiscountCard discountCard) {
+    protected static BigDecimal calculateDiscountProduct(int quantity,
+                                                         boolean isWholesale,
+                                                         BigDecimal totalProductPrice,
+                                                         DiscountCard discountCard) {
         BigDecimal discountProduct;
+
         if (isWholesale && quantity >= 5) {
-            discountProduct = totalProductPrice.multiply(BigDecimal.valueOf(0.1)).setScale(2, RoundingMode.FLOOR);
+            discountProduct = totalProductPrice.multiply(WHOLESALE_DISCOUNT).setScale(2, ROUND);
         } else if (discountCard != null) {
-            discountProduct = totalProductPrice.multiply(discountCard.getDiscount().divide(BigDecimal.valueOf(100), 4, RoundingMode.FLOOR)).setScale(2, RoundingMode.FLOOR);
+            BigDecimal discount = discountCard.getDiscount().divide(HUNDRED, 4, ROUND);
+            discountProduct = totalProductPrice.multiply(discount).setScale(2, ROUND);
         } else {
-            discountProduct = BigDecimal.ZERO.setScale(2, RoundingMode.FLOOR);
+            discountProduct = ZERO.setScale(2, ROUND);
         }
         return discountProduct;
     }
@@ -52,8 +62,8 @@ class CartCalculate {
     protected static BigDecimal calculateDiscountAmount(List<CartItem> productItemList) {
         return productItemList.stream()
                 .map(CartItem::discount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.FLOOR);
+                .reduce(ZERO, BigDecimal::add)
+                .setScale(2, ROUND);
     }
 
     /**
@@ -64,8 +74,8 @@ class CartCalculate {
     protected static BigDecimal calculateTotalPrice(List<CartItem> productItemList) {
         return productItemList.stream()
                 .map(CartItem::totalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.FLOOR);
+                .reduce(ZERO, BigDecimal::add)
+                .setScale(2, ROUND);
     }
 
     /**
@@ -76,6 +86,6 @@ class CartCalculate {
      * @return итоговая сумма с учетом скидки
      */
     protected BigDecimal calculateTotalWithDiscountAmount(BigDecimal totalPrice, BigDecimal discountAmount) {
-        return totalPrice.subtract(discountAmount).setScale(2, RoundingMode.FLOOR);
+        return totalPrice.subtract(discountAmount).setScale(2, ROUND);
     }
 }

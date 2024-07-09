@@ -157,7 +157,9 @@ public class BadRequest {
      * @param requestedQuantity запрошенное количество продукта
      * @return "OK", если количество продукта на складе достаточно, иначе сообщение об ошибке
      */
-    public static boolean quantityNotEnoughInStock(String description, int quantityInStock, int requestedQuantity) {
+    public static boolean quantityNotEnoughInStock(String description,
+                                                   int quantityInStock,
+                                                   int requestedQuantity) {
         if (requestedQuantity <= quantityInStock) {
             return true;
         }
