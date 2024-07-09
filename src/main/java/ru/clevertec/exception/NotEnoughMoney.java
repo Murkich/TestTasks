@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * когда денег недостаточно для совершения покупки.
  */
 public class NotEnoughMoney {
-    private static final String NOT_ENOUGH_MONEY_MESSAGE = "ERROR\nNOT ENOUGH MONEY";
+    private static final String NOT_ENOUGH_MONEY_MESSAGE = "ERROR\nNOT ENOUGH MONEY\n";
 
     /**
      * Проверяет, является ли сумма денег отрицательной или нулевой.
@@ -29,11 +29,11 @@ public class NotEnoughMoney {
      * Проверяет, достаточно ли денег для совершения покупки.
      *
      * @param availableAmount доступная сумма денег
-     * @param totalPrice общая стоимость покупки
+     * @param totalPrice      общая стоимость покупки
      * @return true, если денег достаточно, иначе false
      */
     public static boolean getNotEnoughMoney(BigDecimal availableAmount, BigDecimal totalPrice) {
-        if(availableAmount.compareTo(totalPrice) >= 0) {
+        if (availableAmount.compareTo(totalPrice) >= 0) {
             return true;
         }
         writeNotEnoughMoney(NOT_ENOUGH_MONEY_MESSAGE);

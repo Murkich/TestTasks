@@ -114,8 +114,8 @@ public class BadRequest {
     /**
      * Проверяет, достаточно ли количество продукта на складе.
      *
-     * @param description наименование продукта
-     * @param quantityInStock количество продукта на складе
+     * @param description       наименование продукта
+     * @param quantityInStock   количество продукта на складе
      * @param requestedQuantity запрошенное количество продукта
      * @return "OK", если количество продукта на складе достаточно, иначе сообщение об ошибке
      */
