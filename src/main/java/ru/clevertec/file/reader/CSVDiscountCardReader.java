@@ -1,7 +1,7 @@
 package main.java.ru.clevertec.file.reader;
 
 import main.java.ru.clevertec.exception.InternalServerError;
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
+import main.java.ru.clevertec.model.DiscountCard;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

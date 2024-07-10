@@ -1,6 +1,7 @@
-package main.java.ru.clevertec.model.cart;
+package main.java.ru.clevertec.services;
 
 import main.java.ru.clevertec.file.writer.Writer;
+import main.java.ru.clevertec.model.cart.Cart;
 
 /**
  * Класс CartWriter предназначен для записи информации о корзине покупок в файл.

@@ -1,6 +1,6 @@
 package main.java.ru.clevertec.model.cart;
 
-import main.java.ru.clevertec.model.products.Product;
+import main.java.ru.clevertec.model.Product;
 
 import java.math.BigDecimal;
 

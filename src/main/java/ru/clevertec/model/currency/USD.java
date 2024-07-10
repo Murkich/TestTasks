@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.util.currency;
+package main.java.ru.clevertec.model.currency;
 
 /**
  * Класс USD предназначен для возврата валюты USD (доллара США).

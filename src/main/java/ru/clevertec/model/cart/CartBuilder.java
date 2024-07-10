@@ -1,7 +1,8 @@
 package main.java.ru.clevertec.model.cart;
 
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
-import main.java.ru.clevertec.model.products.Product;
+import main.java.ru.clevertec.model.DiscountCard;
+import main.java.ru.clevertec.model.Product;
+import main.java.ru.clevertec.services.CartCalculate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -3,8 +3,8 @@ package main.java.ru.clevertec.file.writer;
 import main.java.ru.clevertec.exception.InternalServerError;
 import main.java.ru.clevertec.model.cart.Cart;
 import main.java.ru.clevertec.model.cart.CartItem;
-import main.java.ru.clevertec.util.currency.Currency;
-import main.java.ru.clevertec.util.currency.USDFactory;
+import main.java.ru.clevertec.model.currency.Currency;
+import main.java.ru.clevertec.model.currency.USDFactory;
 
 import java.io.BufferedWriter;
 import java.io.File;

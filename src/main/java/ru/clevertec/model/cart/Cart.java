@@ -1,6 +1,6 @@
 package main.java.ru.clevertec.model.cart;
 
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
+import main.java.ru.clevertec.model.DiscountCard;
 import main.java.ru.clevertec.util.DateTimeUtils;
 
 import java.math.BigDecimal;

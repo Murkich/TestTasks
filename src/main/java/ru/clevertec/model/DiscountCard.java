@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.model.discountcard;
+package main.java.ru.clevertec.model;
 
 import java.math.BigDecimal;
 

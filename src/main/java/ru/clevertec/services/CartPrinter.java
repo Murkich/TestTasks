@@ -1,8 +1,10 @@
-package main.java.ru.clevertec.model.cart;
+package main.java.ru.clevertec.services;
 
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
-import main.java.ru.clevertec.util.currency.Currency;
-import main.java.ru.clevertec.util.currency.USDFactory;
+import main.java.ru.clevertec.model.DiscountCard;
+import main.java.ru.clevertec.model.cart.Cart;
+import main.java.ru.clevertec.model.cart.CartItem;
+import main.java.ru.clevertec.model.currency.Currency;
+import main.java.ru.clevertec.model.currency.USDFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

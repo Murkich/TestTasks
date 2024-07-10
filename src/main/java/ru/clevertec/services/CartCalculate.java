@@ -1,6 +1,7 @@
-package main.java.ru.clevertec.model.cart;
+package main.java.ru.clevertec.services;
 
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
+import main.java.ru.clevertec.model.DiscountCard;
+import main.java.ru.clevertec.model.cart.CartItem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,7 +11,7 @@ import java.util.List;
  * Класс CartCalculate содержит статические методы для вычисления различных значений,
  * связанных с корзиной покупок, таких как общая стоимость продуктов, скидка и итоговая сумма с учетом скидки.
  */
-class CartCalculate {
+public class CartCalculate {
     private static final BigDecimal WHOLESALE_DISCOUNT = BigDecimal.valueOf(0.1);
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
     private static final BigDecimal ZERO = BigDecimal.ZERO;

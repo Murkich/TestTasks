@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.util.currency;
+package main.java.ru.clevertec.model.currency;
 
 /**
  * Интерфейс CurrencyFactory определяет контракт для классов,

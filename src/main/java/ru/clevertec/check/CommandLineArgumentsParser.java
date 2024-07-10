@@ -4,8 +4,8 @@ import main.java.ru.clevertec.exception.BadRequest;
 import main.java.ru.clevertec.exception.NotEnoughMoney;
 import main.java.ru.clevertec.file.reader.CSVDiscountCardReader;
 import main.java.ru.clevertec.file.reader.CSVProductReader;
-import main.java.ru.clevertec.model.discountcard.DiscountCard;
-import main.java.ru.clevertec.model.products.Product;
+import main.java.ru.clevertec.model.DiscountCard;
+import main.java.ru.clevertec.model.Product;
 
 import java.math.BigDecimal;
 import java.util.*;
