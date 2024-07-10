@@ -1,55 +1,42 @@
 package main.java.ru.clevertec.file.reader;
 
+import main.java.ru.clevertec.exception.BadRequest;
 import main.java.ru.clevertec.exception.InternalServerError;
-import main.java.ru.clevertec.model.products.Product;
+import main.java.ru.clevertec.model.Product;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-/**
- * Класс CSVProductReader предназначен для чтения данных о товаре из CSV-файла.
- */
+import static main.java.ru.clevertec.constants.Constants.*;
+
 public class CSVProductReader {
-    private static final String PRODUCTS_FILE = "./src/main/resources/products.csv";
-    private static final String DELIMITER = ";";
-
-    /**
-     * Читает данные о товаре по ее id из CSV-файла.
-     *
-     * @param productId id товара
-     * @return объект Product, содержащий данные о товаре, или null, если товар не найден
-     */
-    public static Product getProductById(int productId) {
-        try (BufferedReader br = new BufferedReader(new FileReader(PRODUCTS_FILE))) {
-            // Пропускаем заголовок файла
-            br.readLine();
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(DELIMITER);
-                if (Integer.parseInt(data[0]) == productId) {
-                    return new Product.ProductBuilder()
-                            .setId(productId)
+    public static List<Product> getAllProduct() throws InternalServerError {
+        try (Stream<String> lines = Files.lines(Paths.get(PRODUCTS_FILE))) {
+            return lines.skip(1).map(line -> line.split(DELIMITER))
+                    .map(data -> new Product.ProductBuilder()
+                            .setId(Integer.parseInt(data[0]))
                             .setDescription(data[1])
-                            .setPrice(new BigDecimal(data[2]).setScale(2, RoundingMode.FLOOR))
+                            .setPrice(new BigDecimal(data[2]).setScale(2, ROUND))
                             .setQuantityInStock(Integer.parseInt(data[3]))
                             .setWholesale(Boolean.parseBoolean(data[4]))
-                            .build();
-                }
-            }
-        } catch (FileNotFoundException e) {
-            InternalServerError.writeOtherError("products.csv file does not found");
-            throw new RuntimeException(e);
+                            .build())
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new InternalServerError("Error format in product's file");
         } catch (IOException e) {
-            InternalServerError.writeOtherError("CSVProductReader has an error");
-            throw new RuntimeException(e);
+            throw new InternalServerError("Error reading products.csv file" + e);
         }
+    }
 
-        // Если товар не найден, возвращаем null
-        return null;
+    public static Product findProductById(List<Product> allProducts, int productId) throws BadRequest {
+        return allProducts.stream()
+                .filter(product -> product.getId() == productId)
+                .findFirst()
+                .orElseThrow(() -> new BadRequest("Product with ID " + productId + " didn't find"));
     }
 }
