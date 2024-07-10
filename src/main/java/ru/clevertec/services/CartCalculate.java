@@ -1,50 +1,25 @@
 package main.java.ru.clevertec.services;
 
-import main.java.ru.clevertec.model.DiscountCard;
 import main.java.ru.clevertec.model.cart.CartItem;
+import main.java.ru.clevertec.model.DiscountCard;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
-/**
- * Класс CartCalculate содержит статические методы для вычисления различных значений,
- * связанных с корзиной покупок, таких как общая стоимость продуктов, скидка и итоговая сумма с учетом скидки.
- */
-public class CartCalculate {
-    private static final BigDecimal WHOLESALE_DISCOUNT = BigDecimal.valueOf(0.1);
-    private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
-    private static final BigDecimal ZERO = BigDecimal.ZERO;
-    private static final RoundingMode ROUND = RoundingMode.FLOOR;
+import static main.java.ru.clevertec.constants.Constants.*;
 
-    /**
-     * Вычисляет общую стоимость продукта на основе его количества и цены.
-     *
-     * @param quantity количество продукта
-     * @param price    цена продукта
-     * @return общая стоимость продукта
-     */
+public class CartCalculate {
     protected static BigDecimal calculateTotalProductPrice(int quantity, BigDecimal price) {
         return price.multiply(BigDecimal.valueOf(quantity)).setScale(2, ROUND);
     }
 
-    /**
-     * Вычисляет скидку на продукт на основе его количества, признака оптовой продажи,
-     * общей стоимости и дисконтной карты.
-     *
-     * @param quantity          количество продукта
-     * @param isWholesale       признак оптовой продажи продукта
-     * @param totalProductPrice общая стоимость продукта
-     * @param discountCard      дисконтная карта
-     * @return скидка на продукт
-     */
     protected static BigDecimal calculateDiscountProduct(int quantity,
                                                          boolean isWholesale,
                                                          BigDecimal totalProductPrice,
                                                          DiscountCard discountCard) {
         BigDecimal discountProduct;
 
-        if (isWholesale && quantity >= 5) {
+        if (isWholesale && quantity >= PROMOTION_QUANTITY) {
             discountProduct = totalProductPrice.multiply(WHOLESALE_DISCOUNT).setScale(2, ROUND);
         } else if (discountCard != null) {
             BigDecimal discount = discountCard.getDiscount().divide(HUNDRED, 4, ROUND);
@@ -55,11 +30,6 @@ public class CartCalculate {
         return discountProduct;
     }
 
-    /**
-     * Вычисляет общую сумму скидки для всех продуктов в корзине.
-     *
-     * @return общая сумма скидки
-     */
     protected static BigDecimal calculateDiscountAmount(List<CartItem> productItemList) {
         return productItemList.stream()
                 .map(CartItem::discount)
@@ -67,11 +37,6 @@ public class CartCalculate {
                 .setScale(2, ROUND);
     }
 
-    /**
-     * Вычисляет общую стоимость всех продуктов в корзине.
-     *
-     * @return общая стоимость всех продуктов
-     */
     protected static BigDecimal calculateTotalPrice(List<CartItem> productItemList) {
         return productItemList.stream()
                 .map(CartItem::totalPrice)
@@ -79,13 +44,6 @@ public class CartCalculate {
                 .setScale(2, ROUND);
     }
 
-    /**
-     * Вычисляет итоговую сумму с учетом скидки.
-     *
-     * @param totalPrice     общая стоимость всех продуктов
-     * @param discountAmount общая сумма скидки
-     * @return итоговая сумма с учетом скидки
-     */
     protected BigDecimal calculateTotalWithDiscountAmount(BigDecimal totalPrice, BigDecimal discountAmount) {
         return totalPrice.subtract(discountAmount).setScale(2, ROUND);
     }

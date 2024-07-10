@@ -2,10 +2,6 @@ package main.java.ru.clevertec.model;
 
 import java.math.BigDecimal;
 
-/**
- * Класс DiscountCard представляет собой модель дисконтной карты,
- * содержащую информацию о ее идентификаторе, номере и скидки.
- */
 public class DiscountCard {
     private final int id;
     private final String number;
@@ -17,9 +13,6 @@ public class DiscountCard {
         this.discount = discountCardBuilder.discount;
     }
 
-    /**
-     * Внутренний статический класс DiscountCardBuilder, используемый для создания объектов DiscountCard.
-     */
     public static class DiscountCardBuilder {
         private int id;
         private String number;
@@ -42,9 +35,6 @@ public class DiscountCard {
         }
     }
 
-    /**
-     * Getter methods
-     */
     public int getId() {
         return id;
     }

@@ -2,10 +2,6 @@ package main.java.ru.clevertec.model;
 
 import java.math.BigDecimal;
 
-/**
- * Класс Product представляет собой модель продукта, содержащую информацию о его идентификаторе,
- * названии, цене, количестве на складе и признаке оптовой продажи.
- */
 public class Product {
     private final int id;
     private final String description;
@@ -21,9 +17,6 @@ public class Product {
         this.isWholesale = productBuilder.isWholesale;
     }
 
-    /**
-     * Внутренний статический класс ProductBuilder, используемый для создания объектов Product.
-     */
     public static class ProductBuilder {
         private int id;
         private String description;
@@ -56,9 +49,6 @@ public class Product {
         }
     }
 
-    /**
-     * Getter methods
-     */
     public int getId() {
         return id;
     }

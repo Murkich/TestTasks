@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 
 public final class Constants {
     public static final String RESULT_FILE = "./result.csv";
-    public static final String PRODUCTS_FILE = "./src/main/resources/products.csv";
     public static final String DISCOUNT_CARDS_FILE = "./src/main/resources/discountCards.csv";
     public static final String ID_QTY_SPLIT_CHAR = "-";
     public static final String SPLIT_CHAR = "=";

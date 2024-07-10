@@ -1,14 +1,8 @@
 package main.java.ru.clevertec.model.currency;
 
-/**
- * Класс USD предназначен для возврата валюты USD (доллара США).
- */
+import main.java.ru.clevertec.model.currency.factory.Currency;
+
 public class USD implements Currency {
-    /**
-     * Возвращаем валюту USD (доллара США).
-     *
-     * @return валюту USD (доллара США)
-     */
     @Override
     public String getSymbol() {
         return "$";
