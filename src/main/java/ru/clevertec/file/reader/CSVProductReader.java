@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 import static main.java.ru.clevertec.constants.Constants.*;
 
 public class CSVProductReader {
-    public static List<Product> getAllProduct() throws InternalServerError {
-        try (Stream<String> lines = Files.lines(Paths.get(PRODUCTS_FILE))) {
+    public static List<Product> getAllProduct(String filePath) throws InternalServerError {
+        try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             return lines.skip(1).map(line -> line.split(DELIMITER))
                     .map(data -> new Product.ProductBuilder()
                             .setId(Integer.parseInt(data[0]))

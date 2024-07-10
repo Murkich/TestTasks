@@ -5,12 +5,14 @@ import java.math.RoundingMode;
 
 public final class Constants {
     public static final String RESULT_FILE = "./result.csv";
-    public static final String PRODUCTS_FILE = "./src/main/resources/products.csv";
     public static final String DISCOUNT_CARDS_FILE = "./src/main/resources/discountCards.csv";
     public static final String ID_QTY_SPLIT_CHAR = "-";
     public static final String SPLIT_CHAR = "=";
     public static final String DISCOUNT_CARD_START = "discountCard=";
     public static final String BALANCE_CARD_START = "balanceDebitCard=";
+    public static final String PATH_TO_FILE = "pathToFile=";
+    public static final String SAVE_TO_FILE = "saveToFile=";
+    public static final String CSV_FILE = ".csv";
     public static final String DISCOUNT_CARD_PATTERN = DISCOUNT_CARD_START + "\\d{4}";
     public static final String DEBIT_CARD_BALANCE_PATTERN = BALANCE_CARD_START + "-?\\d+(\\.\\d{1,2})?$";
     public static final String DELIMITER = ";";

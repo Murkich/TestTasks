@@ -8,9 +8,31 @@ import static main.java.ru.clevertec.constants.Constants.*;
 
 public class InputValidator {
     public static void validateInput(String[] args) throws BadRequest {
+        containsSaveToFile(args);
+        containsPathToFile(args);
         containsProductQuantity(args);
         containsValidDebitCardBalance(args);
         containsValidDiscountCard(args);
+    }
+
+    public static void containsPathToFile(String[] args) throws BadRequest {
+        if (Arrays.stream(args).noneMatch(arg -> arg.contains(PATH_TO_FILE))) {
+            throw new BadRequest(PATH_TO_FILE + " didn't write");
+        }
+        checkValidNameFile(args);
+    }
+
+    public static void containsSaveToFile(String[] args) throws BadRequest {
+        if (Arrays.stream(args).noneMatch(arg -> arg.contains(SAVE_TO_FILE))) {
+            throw new BadRequest(SAVE_TO_FILE + " didn't write");
+        }
+        checkValidNameFile(args);
+    }
+
+    private static void checkValidNameFile(String[] args) throws BadRequest {
+        if (Arrays.stream(args).noneMatch(arg -> arg.toLowerCase().endsWith(CSV_FILE))) {
+            throw new BadRequest("Error type of file");
+        }
     }
 
     private static void containsProductQuantity(String[] args) throws BadRequest {

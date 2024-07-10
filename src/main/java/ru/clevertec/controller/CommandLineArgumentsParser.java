@@ -7,6 +7,7 @@ import main.java.ru.clevertec.file.reader.CSVDiscountCardReader;
 import main.java.ru.clevertec.file.reader.CSVProductReader;
 import main.java.ru.clevertec.model.DiscountCard;
 import main.java.ru.clevertec.model.Product;
+import main.java.ru.clevertec.util.FileValidator;
 import main.java.ru.clevertec.util.MoneyValidator;
 import main.java.ru.clevertec.util.QuantityValidator;
 
@@ -16,6 +17,24 @@ import java.util.*;
 import static main.java.ru.clevertec.constants.Constants.*;
 
 public class CommandLineArgumentsParser {
+    static String getPathToFile(String[] args) throws BadRequest {
+        String pathToFile = Arrays.stream(args)
+                .filter(arg -> arg.startsWith(PATH_TO_FILE))
+                .findFirst()
+                .orElse(null);
+        String nameFile = pathToFile.split(SPLIT_CHAR)[1];
+
+        return FileValidator.fileExist(nameFile) ? nameFile : null;
+    }
+
+    static String getSaveToFile(String[] args) {
+        String saveToFile = Arrays.stream(args)
+                .filter(arg -> arg.startsWith(SAVE_TO_FILE))
+                .findFirst()
+                .orElse(null);
+
+        return saveToFile == null ? null : saveToFile.split(SPLIT_CHAR)[1];
+    }
     static Map<Integer, Integer> getIdProductAndQuantityFromCommandLine(String[] args) {
         Map<Integer, Integer> products = new LinkedHashMap<>();
 
@@ -30,9 +49,9 @@ public class CommandLineArgumentsParser {
         return products;
     }
 
-    static List<Product> getProductsFromMap(Map<Integer, Integer> productMap) throws BadRequest, InternalServerError {
+    static List<Product> getProductsFromMap(String filePath, Map<Integer, Integer> productMap) throws BadRequest, InternalServerError {
         List<Product> products = new ArrayList<>();
-        List<Product> productsFromFile = CSVProductReader.getAllProduct();
+        List<Product> productsFromFile = CSVProductReader.getAllProduct(filePath);
 
         if (productsFromFile.isEmpty()) {
             throw new InternalServerError("products.csv is null");
