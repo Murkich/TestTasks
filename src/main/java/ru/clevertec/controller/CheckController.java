@@ -31,7 +31,6 @@ public class CheckController {
         } catch (InternalServerError e) {
             return;
         }
-        setWriter(objWriter);
 
         try {
             InputValidator.validateInput(userInput);
@@ -87,11 +86,5 @@ public class CheckController {
         CartWriter.writeResult(objWriter, cart);
         CartPrinter.showCart(debitCardBalance, cart);
         debitCardBalance = DebitCardCalculate.updateDebitCardBalance(debitCardBalance, cart.getTotalWithDiscountAmount());
-    }
-
-    private static void setWriter(Writer objWriter) {
-        BadRequest.setObjWriter(objWriter);
-        NotEnoughMoney.setObjWriter(objWriter);
-        InternalServerError.setObjWriter(objWriter);
     }
 }
