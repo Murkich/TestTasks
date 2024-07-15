@@ -35,6 +35,7 @@ public class CommandLineArgumentsParser {
 
         return saveToFile == null ? null : saveToFile.split(SPLIT_CHAR)[1];
     }
+
     static Map<Integer, Integer> getIdProductAndQuantityFromCommandLine(String[] args) {
         Map<Integer, Integer> products = new LinkedHashMap<>();
 
@@ -53,9 +54,8 @@ public class CommandLineArgumentsParser {
         List<Product> products = new ArrayList<>();
         List<Product> productsFromFile = CSVProductReader.getAllProduct(filePath);
 
-        if (productsFromFile.isEmpty()) {
+        if (productsFromFile.isEmpty())
             throw new InternalServerError("products.csv is null");
-        }
 
         for (Map.Entry<Integer, Integer> productIdAndQuantity : productMap.entrySet()) {
             int productId = productIdAndQuantity.getKey();
@@ -77,9 +77,9 @@ public class CommandLineArgumentsParser {
                 .findFirst()
                 .orElse(null);
 
-        if (discountCardArgument == null) {
+        if (discountCardArgument == null)
             return null;
-        }
+
         String cardNumber = discountCardArgument.split(SPLIT_CHAR)[1];
 
         return CSVDiscountCardReader.readDiscountCardByNumber(cardNumber);
@@ -91,6 +91,7 @@ public class CommandLineArgumentsParser {
                 .findFirst()
                 .orElse(null);
         String balanceString = balanceArgument.split(SPLIT_CHAR)[1];
+
         BigDecimal balance = new BigDecimal(balanceString);
 
         return MoneyValidator.validateAmount(balance);

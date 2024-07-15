@@ -11,6 +11,7 @@ public class DateTimeUtils {
     public static String getCurrentDateTime() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+
         return currentDateTime.format(formatter);
     }
 }

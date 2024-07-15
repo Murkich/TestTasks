@@ -38,6 +38,7 @@ public class CheckController {
             // Исключение неверного ввода выведено на экран и записано в файл, выходим из программы
             return;
         }
+
         BigDecimal debitCardBalance;
         try {
             debitCardBalance = CommandLineArgumentsParser.getDebitCardBalanceFromCommandLineArguments(userInput).setScale(2, ROUND);
@@ -83,8 +84,10 @@ public class CheckController {
         } catch (NotEnoughMoney e) {
             return;
         }
+
         CartWriter.writeResult(objWriter, cart);
         CartPrinter.showCart(debitCardBalance, cart);
+
         debitCardBalance = DebitCardCalculate.updateDebitCardBalance(debitCardBalance, cart.getTotalWithDiscountAmount());
     }
 }

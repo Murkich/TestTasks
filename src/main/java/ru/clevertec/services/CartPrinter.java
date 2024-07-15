@@ -29,9 +29,8 @@ public class CartPrinter {
     }
 
     private static void printDiscountCard(DiscountCard discountCard) {
-        if (discountCard != null) {
+        if (discountCard != null)
             System.out.println("Discount Card: " + discountCard.getNumber());
-        }
     }
 
     private static void printCartItems(List<CartItem> productItems, Currency currency) {

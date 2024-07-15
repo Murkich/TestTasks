@@ -26,8 +26,10 @@ public class CSVProductReader {
                             .setWholesale(Boolean.parseBoolean(data[4]))
                             .build())
                     .collect(Collectors.toList());
+
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new InternalServerError("Error format in product's file");
+
         } catch (IOException e) {
             throw new InternalServerError("Error reading products.csv file" + e);
         }

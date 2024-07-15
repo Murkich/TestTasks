@@ -15,6 +15,7 @@ public class CSVDiscountCardReader {
     public static DiscountCard readDiscountCardByNumber(String number) throws InternalServerError {
         try (BufferedReader br = new BufferedReader(new FileReader(DISCOUNT_CARDS_FILE))) {
             br.readLine();
+
             String line;
 
             while ((line = br.readLine()) != null) {
@@ -29,6 +30,7 @@ public class CSVDiscountCardReader {
             }
         } catch (FileNotFoundException e) {
             throw new InternalServerError("discountCards.csv file does not found");
+
         } catch (IOException e) {
             throw new InternalServerError("CSVDiscountCard has an error");
         }

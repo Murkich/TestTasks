@@ -29,13 +29,15 @@ public class CSVResultWriter implements Writer {
 
     private void createFileIfNotExists() throws InternalServerError {
         File file = new File(filePath);
+
         if (!file.exists()) {
             try {
                 File parentDir = file.getParentFile();
-                if (!parentDir.exists()) {
+                if (!parentDir.exists())
                     parentDir.mkdirs();
-                }
+
                 file.createNewFile();
+
             } catch (IOException e) {
                 throw new InternalServerError("Error creating file: " + e.getMessage());
             }
@@ -50,6 +52,7 @@ public class CSVResultWriter implements Writer {
             writeDateTime(bw, cart.getCurrentDateTime());
             writeProductItems(bw, cart.getProductItemList(), usdCurrency);
             writeTotalInfo(bw, cart, usdCurrency);
+
         } catch (IOException e) {
             System.out.println("CSVResultWriter has an error");
             throw new RuntimeException(e);
@@ -59,6 +62,7 @@ public class CSVResultWriter implements Writer {
     public static void writeError(String message) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             bw.write(message + "\n");
+
         } catch (IOException e) {
             System.out.println("CSVResultWriter has an error");
             throw new RuntimeException(e);
@@ -73,14 +77,15 @@ public class CSVResultWriter implements Writer {
         bw.write(PRODUCT_HEADER + "\n");
 
         StringBuilder sb = new StringBuilder();
-        for (CartItem productItem : productItems) {
+
+        for (CartItem productItem : productItems)
             sb.append(productItem.quantity()).append(DELIMITER)
                     .append(productItem.product().getDescription()).append(DELIMITER)
                     .append(productItem.product().getPrice()).append(currency.getSymbol()).append(DELIMITER)
                     .append(productItem.discount()).append(currency.getSymbol()).append(DELIMITER)
                     .append(productItem.totalPrice()).append(currency.getSymbol())
                     .append(System.lineSeparator());
-        }
+
         bw.write(sb + "\n");
     }
 
@@ -91,6 +96,7 @@ public class CSVResultWriter implements Writer {
                 cart.getTotalPrice(), currency.getSymbol(), DELIMITER,
                 cart.getDiscountAmount(), currency.getSymbol(), DELIMITER,
                 cart.getTotalWithDiscountAmount(), currency.getSymbol());
+
         bw.write(totalLine + "\n");
     }
 }

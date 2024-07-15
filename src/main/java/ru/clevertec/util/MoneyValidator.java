@@ -10,16 +10,16 @@ import static main.java.ru.clevertec.constants.Constants.ZERO;
 public class MoneyValidator {
 
     public static BigDecimal validateAmount(BigDecimal money) throws NotEnoughMoney {
-        if (money.compareTo(ZERO) <= 0) {
+        if (money.compareTo(ZERO) <= 0)
             throw new NotEnoughMoney("");
-        }
+
         return money;
     }
 
     public static void validatePurchase(BigDecimal availableAmount, BigDecimal totalPrice) throws NotEnoughMoney {
-        if (availableAmount.compareTo(totalPrice) >= 0) {
+        if (availableAmount.compareTo(totalPrice) >= 0)
             return;
-        }
+
         throw new NotEnoughMoney("");
     }
 }

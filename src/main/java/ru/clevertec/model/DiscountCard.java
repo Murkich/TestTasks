@@ -43,7 +43,5 @@ public class DiscountCard {
         return number;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
-    }
+    public BigDecimal getDiscount() {return discount;}
 }

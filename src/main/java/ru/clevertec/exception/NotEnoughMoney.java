@@ -6,6 +6,7 @@ public class NotEnoughMoney extends Exception {
     private static final String NOT_ENOUGH_MONEY_MESSAGE = "ERROR\nNOT ENOUGH MONEY\n";
 
     public NotEnoughMoney(String message) {
+        super(NOT_ENOUGH_MONEY_MESSAGE + message);
         System.out.println(NOT_ENOUGH_MONEY_MESSAGE + message);
         CSVResultWriter.writeError(NOT_ENOUGH_MONEY_MESSAGE + message);
     }

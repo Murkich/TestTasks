@@ -19,14 +19,14 @@ public class CartCalculate {
                                                          DiscountCard discountCard) {
         BigDecimal discountProduct;
 
-        if (isWholesale && quantity >= PROMOTION_QUANTITY) {
+        if (isWholesale && quantity >= PROMOTION_QUANTITY)
             discountProduct = totalProductPrice.multiply(WHOLESALE_DISCOUNT).setScale(2, ROUND);
-        } else if (discountCard != null) {
+        else if (discountCard != null) {
             BigDecimal discount = discountCard.getDiscount().divide(HUNDRED, 4, ROUND);
             discountProduct = totalProductPrice.multiply(discount).setScale(2, ROUND);
-        } else {
+        } else
             discountProduct = ZERO.setScale(2, ROUND);
-        }
+
         return discountProduct;
     }
 
